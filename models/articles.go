@@ -1,4 +1,4 @@
-package main
+package models
 
 type Artigo struct { 
 	ID int `json:"id"`
