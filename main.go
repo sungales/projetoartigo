@@ -1,14 +1,19 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
-	"time"
+
+	"github.com/sungales/projetoartigo/models"
 )
 
-func main() { 
+func main() {
 
-	articleRoute := func(w http.ResponseWriter, r *http.Request) {
+	var database = []models.Artigo{}
+
+	articlesRoute := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Método não permitido", http.StatusBadRequest)
 			return
@@ -17,25 +22,30 @@ func main() {
 		w.Write([]byte("Nenhum artigo ainda"))
 	}
 
-	createArticleRoute := func(w http.ResponseWriter, r *http.Request) {
+	createArticle := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, "Método não permitido", http.StatusBadRequest)
 			return
 		}
 
-		Artigo := &Artigo{
-			ID: 1,
-			Descricao: "Na epoca da fruta, todo mundo era banana",
-			CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+		var novoArtigo models.Artigo
+
+		// pega o corpo da requisição e passa pra variável novoArtigo
+		err := json.NewDecoder(r.Body).Decode(&novoArtigo)
+		if err != nil {
+			fmt.Println("Erro ao ler o corpo da requisição")
+			return
 		}
 
-
-		w.Write([]byte(Artigo.Descricao))
+		// arrumar a logica de ID, por enquanto é só o tamanho do banco de dados + 1
+		// arrumar a logica do artigo em si, por enquanto é apenas o que vem na requisição.
+		fmt.Print(novoArtigo)
+		
+		fmt.Print(database)
 	}
 
-
-	http.HandleFunc("/artigos", articleRoute)
-	http.HandleFunc("/artigos/criar", createArticleRoute)
+	http.HandleFunc("/artigos", articlesRoute)
+	http.HandleFunc("/artigos/criar", createArticle)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
