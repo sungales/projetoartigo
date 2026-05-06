@@ -1,17 +1,26 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/sungales/projetoartigo/models"
+	_ "modernc.org/sqlite"
 )
 
 func main() {
 
-	var database = []models.Artigo{}
+	database, err := sql.Open("sqlite", "database.db")
+	if err != nil {
+		fmt.Println("Erro ao conectar com o banco de dados")
+		return
+	}
+
+	fmt.Print("deu certo o banco")
+	fmt.Print(database)
 
 	articlesRoute := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
@@ -37,11 +46,8 @@ func main() {
 			return
 		}
 
-		// arrumar a logica de ID, por enquanto é só o tamanho do banco de dados + 1
-		// arrumar a logica do artigo em si, por enquanto é apenas o que vem na requisição.
-		fmt.Print(novoArtigo)
-		
-		fmt.Print(database)
+		w.Write([]byte("Criado com sucesso"))
+
 	}
 
 	http.HandleFunc("/artigos", articlesRoute)
