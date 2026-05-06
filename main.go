@@ -21,18 +21,17 @@ func main() {
 	}
 	defer database.Close()
 
+	fmt.Println("banco funcionando!")
+
 	sql, err := os.ReadFile("./models/create-table.sql")
-	if err != nil { 
+	if err != nil {
 		fmt.Println("erro ao ler o arquivo SQL")
 	}
 
 	_, err = database.Exec(string(sql))
-	if err != nil { 
+	if err != nil {
 		log.Fatal("erro ao criar a tabela: ", err)
 	}
-	
-	fmt.Print("deu certo o banco")
-	fmt.Print(database)
 
 	articlesRoute := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
@@ -40,7 +39,26 @@ func main() {
 			return
 		}
 
-		w.Write([]byte("Nenhum artigo ainda"))
+		rows, err := database.Query("SELECT * FROM artigos")
+		if err != nil {
+			fmt.Println("erro ao puxar os artigos do banco: ", err)
+		}
+		defer rows.Close()
+		for rows.Next() {
+			var artigo models.Artigo
+
+			err := rows.Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
+			if err != nil {
+				fmt.Println("não foi possivel ler os artigos do banco: ", err)
+			}
+			res, err := json.Marshal(artigo)
+			if err != nil {
+				fmt.Println("erro ao codificar o artigo para JSON: ", err)
+			}
+			w.Write([]byte("Todos os artigos: \n"))
+			w.Write(res)
+
+		}
 	}
 
 	createArticle := func(w http.ResponseWriter, r *http.Request) {
@@ -50,6 +68,7 @@ func main() {
 		}
 
 		var novoArtigo models.Artigo
+		var template = "INSERT INTO artigos (descricao, created_at) VALUES (?, ?)"
 
 		// pega o corpo da requisição e passa pra variável novoArtigo
 		err := json.NewDecoder(r.Body).Decode(&novoArtigo)
@@ -58,7 +77,12 @@ func main() {
 			return
 		}
 
-		w.Write([]byte("Criado com sucesso"))
+		_, err = database.Exec(template, novoArtigo.Descricao, novoArtigo.CreatedAt)
+		if err != nil {
+			fmt.Println("erro ao inserir o artigo no banco: ", err)
+			return
+		}
+		fmt.Println("artigo criado com sucesso!")
 
 	}
 
