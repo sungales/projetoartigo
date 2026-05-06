@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/sungales/projetoartigo/models"
 	_ "modernc.org/sqlite"
@@ -18,7 +19,18 @@ func main() {
 		fmt.Println("Erro ao conectar com o banco de dados")
 		return
 	}
+	defer database.Close()
 
+	sql, err := os.ReadFile("./models/create-table.sql")
+	if err != nil { 
+		fmt.Println("erro ao ler o arquivo SQL")
+	}
+
+	_, err = database.Exec(string(sql))
+	if err != nil { 
+		log.Fatal("erro ao criar a tabela: ", err)
+	}
+	
 	fmt.Print("deu certo o banco")
 	fmt.Print(database)
 

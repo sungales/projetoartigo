@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS artigos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    descricao TEXT NOT NULL,
+    created_at TEXT
+)
