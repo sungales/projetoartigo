@@ -15,15 +15,20 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var novoArtigo models.Artigo
-
-	// pega o corpo da requisição e passa pra variável novoArtigo
-	err := json.NewDecoder(r.Body).Decode(&novoArtigo)
+	var artigo models.Artigo
+	err := json.NewDecoder(r.Body).Decode(&artigo)
 	if err != nil {
-		fmt.Println("Erro ao ler o corpo da requisição")
+		http.Error(w, "erro ao decodificar o corpo da requisição", http.StatusBadRequest)
 		return
 	}
-	fmt.Println("artigo criado com sucesso!")
+
+	if artigo.Descricao == "" || artigo.CreatedAt == "" {
+		http.Error(w, "falta preencher a descricao", http.StatusBadRequest)
+		return
+	}
+
+	database.CreateArticle(artigo)
+	w.Write([]byte("artigo criado!"))
 }
 
 func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
@@ -32,10 +37,34 @@ func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// VERIFICAR SE AS ROTAS ESTÃO FUNCIONANDO
-	// TERMINAR DE ORGANIZAR O CÓDIGO DE SQL/LÓGICA DO BANCO
-	// COLOCAR TUDO CERTO NA main.go
+	var artigos = database.GetAllArticles()
+	artigosJson, err := json.Marshal(artigos)
+	if err != nil {
+		fmt.Println("erro ao converter para JSON: ", err)
+	}
+	w.Write(artigosJson)
+	fmt.Println("artigos enviados")
+}
 
-	var artigos = database.GetArticles()
-	fmt.Println(artigos)
+func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "método inválido", http.StatusBadRequest)
+		return
+	}
+
+	var requestIDBody struct {
+		ID int `json:"id"`
+	}
+
+	err := json.NewDecoder(r.Body).Decode(&requestIDBody)
+	if err != nil {
+		fmt.Println("não foi possivel pegar o ID da requisição: ", err)
+	}
+
+	artigo := database.GetArticleByID(requestIDBody.ID)
+	artigoJSON, err := json.Marshal(artigo)
+	if err != nil {
+		fmt.Println("não é possivel converter para JSON: ", err)
+	}
+	w.Write(artigoJSON)
 }

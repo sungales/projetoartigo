@@ -19,6 +19,8 @@ func ConnectDatabase() {
 		log.Fatal("não foi possivel conectar ao banco ", err)
 	}
 
+	fmt.Println("banco funcionando")
+
 	sqlfile, err := os.ReadFile("./sql/sql-manager.sql")
 	if err != nil {
 		fmt.Println("não foi possivel ler o arquivo sql: ", err)
@@ -28,10 +30,9 @@ func ConnectDatabase() {
 	if err != nil {
 		fmt.Println("não foi possível criar as tabelas no banco: ", err)
 	}
-
 }
 
-func GetArticles() []models.Artigo {
+func GetAllArticles() []models.Artigo {
 	query := "SELECT * FROM artigos"
 
 	rows, err := database.Query(query)
@@ -41,6 +42,7 @@ func GetArticles() []models.Artigo {
 	defer rows.Close()
 
 	var artigos []models.Artigo
+
 	for rows.Next() {
 		var artigo models.Artigo
 		err := rows.Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
@@ -50,4 +52,26 @@ func GetArticles() []models.Artigo {
 		artigos = append(artigos, artigo)
 	}
 	return artigos
+}
+
+func GetArticleByID(id int) models.Artigo {
+	query := "SELECT * FROM artigos WHERE id = ?"
+
+	var artigo models.Artigo
+	err := database.QueryRow(query, id).Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
+	if err != nil {
+		fmt.Println("não foi possivel trazer o artigo", err)
+	}
+	return artigo
+}
+
+func CreateArticle(artigo models.Artigo) { 
+	query := "INSERT INTO artigos (descricao, created_at) VALUES (?, ?)"
+    
+	_, err := database.Exec(query, artigo.Descricao, artigo.CreatedAt)
+	if err != nil { 
+		fmt.Println("não foi possivel criar o artigo ", err)
+	}
+	
+	fmt.Println("artigo criado!")
 }
