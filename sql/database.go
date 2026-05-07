@@ -17,6 +17,7 @@ func ConnectDatabase() {
 	database, err = sql.Open("sqlite", "./database.db")
 	if err != nil {
 		log.Fatal("não foi possivel conectar ao banco ", err)
+		return
 	}
 
 	fmt.Println("banco funcionando")
@@ -24,11 +25,13 @@ func ConnectDatabase() {
 	sqlfile, err := os.ReadFile("./sql/sql-manager.sql")
 	if err != nil {
 		fmt.Println("não foi possivel ler o arquivo sql: ", err)
+		return
 	}
 
 	_, err = database.Exec(string(sqlfile))
 	if err != nil {
 		fmt.Println("não foi possível criar as tabelas no banco: ", err)
+		return
 	}
 }
 
@@ -38,6 +41,7 @@ func GetAllArticles() []models.Artigo {
 	rows, err := database.Query(query)
 	if err != nil {
 		fmt.Println("não foi possivel trazer os artigos do banco: ", err)
+		return []models.Artigo{}
 	}
 	defer rows.Close()
 
@@ -48,6 +52,7 @@ func GetAllArticles() []models.Artigo {
 		err := rows.Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
 		if err != nil {
 			fmt.Println("não foi possivel ler os artigos do banco: ", err)
+			return []models.Artigo{}
 		}
 		artigos = append(artigos, artigo)
 	}
@@ -61,6 +66,7 @@ func GetArticleByID(id int) models.Artigo {
 	err := database.QueryRow(query, id).Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
 	if err != nil {
 		fmt.Println("não foi possivel trazer o artigo", err)
+		return models.Artigo{}
 	}
 	return artigo
 }
@@ -71,6 +77,7 @@ func CreateArticle(artigo models.Artigo) {
 	_, err := database.Exec(query, artigo.Descricao, artigo.CreatedAt)
 	if err != nil {
 		fmt.Println("não foi possivel criar o artigo ", err)
+		return
 	}
 
 	fmt.Println("artigo criado!")

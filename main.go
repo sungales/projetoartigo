@@ -12,9 +12,9 @@ import (
 func main() {
 	database.ConnectDatabase()
 
-	http.HandleFunc("/artigos", routes.GetArticlesRoute)
-	http.HandleFunc("/artigos/criar", routes.CreateArticleRoute)
-	http.HandleFunc("/artigos/{id}", routes.GetArticleByIDRoute)
+	http.HandleFunc("GET /artigos", routes.GetArticlesRoute)
+	http.HandleFunc("POST /artigos/criar", routes.CreateArticleRoute)
+	http.HandleFunc("GET /artigos/{id}", routes.GetArticleByIDRoute)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

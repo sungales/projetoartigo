@@ -11,12 +11,8 @@ import (
 )
 
 func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Método não permitido", http.StatusBadRequest)
-		return
-	}
-
 	var artigo models.Artigo
+
 	err := json.NewDecoder(r.Body).Decode(&artigo)
 	if err != nil {
 		http.Error(w, "erro ao decodificar o corpo da requisição", http.StatusBadRequest)
@@ -33,37 +29,33 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Método não permitido", http.StatusBadRequest)
-		return
-	}
-
 	var artigos = database.GetAllArticles()
+
 	artigosJson, err := json.Marshal(artigos)
 	if err != nil {
 		fmt.Println("erro ao converter para JSON: ", err)
+		return
 	}
 	w.Write(artigosJson)
-	fmt.Println("artigos enviados")
+	fmt.Println("todos os artigos enviados!")
 }
 
 func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "método inválido", http.StatusBadRequest)
-		return
-	}
-
 	var artigoID = r.PathValue("id")
+
 	id, err := strconv.Atoi(artigoID)
 	if err != nil {
 		fmt.Println("não foi possivel converter: ", err)
+		http.Error(w, "ID inválido, precisa ser um número", http.StatusBadRequest)
+		return
 	}
 
 	artigo := database.GetArticleByID(id)
 	artigoJSON, err := json.Marshal(artigo)
 	if err != nil {
 		fmt.Println("não foi possivel transcrever para JSON: ", err)
+		return
 	}
 	w.Write(artigoJSON)
-	fmt.Println("artigo enviado")
+	fmt.Println("artigo com o ID ", id, " enviado")
 }
