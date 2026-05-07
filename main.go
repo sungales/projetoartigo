@@ -14,7 +14,7 @@ func main() {
 
 	http.HandleFunc("/artigos", routes.GetArticlesRoute)
 	http.HandleFunc("/artigos/criar", routes.CreateArticleRoute)
-	http.HandleFunc("/artigos/id", routes.GetArticleByIDRoute)
+	http.HandleFunc("/artigos/{id}", routes.GetArticleByIDRoute)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

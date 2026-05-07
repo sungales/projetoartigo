@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/sungales/projetoartigo/models"
 	database "github.com/sungales/projetoartigo/sql"
@@ -52,19 +53,17 @@ func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var requestIDBody struct {
-		ID int `json:"id"`
-	}
-
-	err := json.NewDecoder(r.Body).Decode(&requestIDBody)
+	var artigoID = r.PathValue("id")
+	id, err := strconv.Atoi(artigoID)
 	if err != nil {
-		fmt.Println("não foi possivel pegar o ID da requisição: ", err)
+		fmt.Println("não foi possivel converter: ", err)
 	}
 
-	artigo := database.GetArticleByID(requestIDBody.ID)
+	artigo := database.GetArticleByID(id)
 	artigoJSON, err := json.Marshal(artigo)
 	if err != nil {
-		fmt.Println("não é possivel converter para JSON: ", err)
+		fmt.Println("não foi possivel transcrever para JSON: ", err)
 	}
 	w.Write(artigoJSON)
+	fmt.Println("artigo enviado")
 }

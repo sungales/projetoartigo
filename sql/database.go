@@ -14,7 +14,7 @@ var database *sql.DB
 func ConnectDatabase() {
 	var err error
 
-	database, err = sql.Open("sqlite", "./sql/database.db")
+	database, err = sql.Open("sqlite", "./database.db")
 	if err != nil {
 		log.Fatal("não foi possivel conectar ao banco ", err)
 	}
@@ -55,7 +55,7 @@ func GetAllArticles() []models.Artigo {
 }
 
 func GetArticleByID(id int) models.Artigo {
-	query := "SELECT * FROM artigos WHERE id = ?"
+	query := "SELECT id, descricao, created_at FROM artigos WHERE id = ?"
 
 	var artigo models.Artigo
 	err := database.QueryRow(query, id).Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
@@ -65,13 +65,13 @@ func GetArticleByID(id int) models.Artigo {
 	return artigo
 }
 
-func CreateArticle(artigo models.Artigo) { 
+func CreateArticle(artigo models.Artigo) {
 	query := "INSERT INTO artigos (descricao, created_at) VALUES (?, ?)"
-    
+
 	_, err := database.Exec(query, artigo.Descricao, artigo.CreatedAt)
-	if err != nil { 
+	if err != nil {
 		fmt.Println("não foi possivel criar o artigo ", err)
 	}
-	
+
 	fmt.Println("artigo criado!")
 }
