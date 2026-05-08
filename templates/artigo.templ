@@ -1,0 +1,10 @@
+package templates
+
+type Artigo struct {
+    Descricao string
+    CreatedAt string
+}
+
+templ ArtigoTemplate(artigo Artigo) { 
+    <div>Descrição do Artigo: { artigo.Descricao }</div>
+}
