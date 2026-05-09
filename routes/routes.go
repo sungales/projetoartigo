@@ -12,8 +12,9 @@ import (
 )
 
 func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
-	var artigo models.Artigo
+	w.Header().Set("Content-Type",  "text/html; charset=utf8")
 
+	var artigo models.Artigo
 	err := json.NewDecoder(r.Body).Decode(&artigo)
 	if err != nil {
 		http.Error(w, "erro ao decodificar o corpo da requisição", http.StatusBadRequest)
@@ -30,6 +31,8 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type",  "text/html; charset=utf8")
+	
 	var artigos, err = database.GetAllArticles()
 	if err != nil {
 		fmt.Println("não foi possivel pegar os artigos do banco: ", err)
@@ -44,8 +47,9 @@ func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type",  "text/html; charset=utf8")
+	
 	var artigoID = r.PathValue("id")
-
 	id, err := strconv.Atoi(artigoID)
 	if err != nil {
 		fmt.Println("não foi possivel converter: ", err)

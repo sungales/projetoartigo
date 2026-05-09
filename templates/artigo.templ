@@ -5,10 +5,10 @@ import (
 )
 
 templ ArtigoTemplate(artigos []models.Artigo) { 
-    <ul>
+    <ul class="">
         for _, a := range artigos { 
-            <li>{ a.Descricao }</li>
-            <li>{ a.CreatedAt }</li>
+            <li> { a.Descricao } </li>
+            <li> { a.CreatedAt } </li>
         }
     </ul>
 }
