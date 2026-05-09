@@ -1,10 +1,14 @@
 package templates
 
-type Artigo struct {
-    Descricao string
-    CreatedAt string
-}
+import ( 
+    "github.com/sungales/projetoartigo/models"
+)
 
-templ ArtigoTemplate(artigo Artigo) { 
-    <div>Descrição do Artigo: { artigo.Descricao }</div>
+templ ArtigoTemplate(artigos []models.Artigo) { 
+    <ul>
+        for _, a := range artigos { 
+            <li>{ a.Descricao }</li>
+            <li>{ a.CreatedAt }</li>
+        }
+    </ul>
 }
