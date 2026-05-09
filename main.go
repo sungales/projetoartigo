@@ -20,5 +20,8 @@ func main() {
 	http.HandleFunc("POST /artigos/criar", routes.CreateArticleRoute)
 	http.HandleFunc("GET /artigos/{id}", routes.GetArticleByIDRoute)
 
+	// VALIDAR TIMESTAMP PARA O CREATED_AT
+	// TENTAR ORGANIZAR E ESTILIZAR PELO MENOS O GET DOS ARTIGOS
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
