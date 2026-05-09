@@ -8,6 +8,7 @@ import (
 
 	"github.com/sungales/projetoartigo/models"
 	database "github.com/sungales/projetoartigo/sql"
+	"github.com/sungales/projetoartigo/templates"
 )
 
 func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
@@ -29,15 +30,17 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
-	var artigos = database.GetAllArticles()
-
-	artigosJson, err := json.Marshal(artigos)
+	var artigos, err = database.GetAllArticles()
 	if err != nil {
-		fmt.Println("erro ao converter para JSON: ", err)
+		fmt.Println("não foi possivel pegar os artigos do banco: ", err)
 		return
 	}
-	w.Write(artigosJson)
-	fmt.Println("todos os artigos enviados!")
+
+	component := templates.ArtigoTemplate(artigos)
+	if err = component.Render(r.Context(), w); err != nil {
+		fmt.Println("erro ao renderizar")
+		return
+	}
 }
 
 func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +53,12 @@ func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	artigo := database.GetArticleByID(id)
+	artigo, err := database.GetArticleByID(id)
+	if err != nil {
+		fmt.Println("não foi possivel pegar o artigo do banco: ", err)
+		return
+	}
+
 	artigoJSON, err := json.Marshal(artigo)
 	if err != nil {
 		fmt.Println("não foi possivel transcrever para JSON: ", err)
