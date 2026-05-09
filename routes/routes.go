@@ -7,12 +7,13 @@ import (
 	"strconv"
 
 	"github.com/sungales/projetoartigo/models"
-	database "github.com/sungales/projetoartigo/sql"
 	"github.com/sungales/projetoartigo/templates"
+
+	database "github.com/sungales/projetoartigo/sql"
 )
 
 func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type",  "text/html; charset=utf8")
+	w.Header().Set("Content-Type", "text/html; charset=utf8")
 
 	var artigo models.Artigo
 	err := json.NewDecoder(r.Body).Decode(&artigo)
@@ -21,8 +22,8 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if artigo.Descricao == "" || artigo.CreatedAt == "" {
-		http.Error(w, "falta preencher a descricao", http.StatusBadRequest)
+	if artigo.Descricao == "" || artigo.CreatedAt.IsZero() {
+		http.Error(w, "falta preencher a descricao e/ou a data", http.StatusBadRequest)
 		return
 	}
 
@@ -31,8 +32,8 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type",  "text/html; charset=utf8")
-	
+	w.Header().Set("Content-Type", "text/html; charset=utf8")
+
 	var artigos, err = database.GetAllArticles()
 	if err != nil {
 		fmt.Println("não foi possivel pegar os artigos do banco: ", err)
@@ -47,8 +48,8 @@ func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type",  "text/html; charset=utf8")
-	
+	w.Header().Set("Content-Type", "text/html; charset=utf8")
+
 	var artigoID = r.PathValue("id")
 	id, err := strconv.Atoi(artigoID)
 	if err != nil {

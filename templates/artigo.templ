@@ -8,7 +8,7 @@ templ ArtigoTemplate(artigos []models.Artigo) {
     <ul class="">
         for _, a := range artigos { 
             <li> { a.Descricao } </li>
-            <li> { a.CreatedAt } </li>
+            <li> { a.CreatedAt.Format("02/01/2006 15:04") } </li>
         }
     </ul>
 }
