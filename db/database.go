@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/sungales/projetoartigo/models"
+	"github.com/sungales/projetoartigo/internal/models"
 )
 
 var database *sql.DB
@@ -22,7 +22,7 @@ func ConnectDatabase() (error) {
 
 	fmt.Println("banco funcionando")
 
-	sqlfile, err := os.ReadFile("./sql/sql-manager.sql")
+	sqlfile, err := os.ReadFile("./db/sql-manager.sql")
 	if err != nil {
 		fmt.Println("não foi possivel ler o arquivo sql: ", err)
 		return err

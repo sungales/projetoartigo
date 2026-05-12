@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/sungales/projetoartigo/routes"
+	"github.com/sungales/projetoartigo/internal/routes"
 
-	database "github.com/sungales/projetoartigo/sql"
+	database "github.com/sungales/projetoartigo/db"
 	_ "modernc.org/sqlite"
 )
 
@@ -19,8 +19,6 @@ func main() {
 	http.HandleFunc("GET /artigos", routes.GetArticlesRoute)
 	http.HandleFunc("POST /artigos/criar", routes.CreateArticleRoute)
 	http.HandleFunc("GET /artigos/{id}", routes.GetArticleByIDRoute)
-
-
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/sungales/projetoartigo/models"
+	"github.com/sungales/projetoartigo/internal/models"
 	"github.com/sungales/projetoartigo/html/templates"
 
-	database "github.com/sungales/projetoartigo/sql"
+	database "github.com/sungales/projetoartigo/db"
 )
 
 func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {

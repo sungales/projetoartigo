@@ -9,7 +9,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/sungales/projetoartigo/models"
+	"github.com/sungales/projetoartigo/internal/models"
 )
 
 func Base(title string) templ.Component {
