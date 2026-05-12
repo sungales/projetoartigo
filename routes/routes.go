@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/sungales/projetoartigo/models"
-	"github.com/sungales/projetoartigo/templates"
+	"github.com/sungales/projetoartigo/html/templates"
 
 	database "github.com/sungales/projetoartigo/sql"
 )
@@ -40,7 +40,7 @@ func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	component := templates.ArtigoTemplate(artigos)
+	component := templates.ArtigoTemplate("title", artigos)
 	if err = component.Render(r.Context(), w); err != nil {
 		fmt.Println("erro ao renderizar")
 		return

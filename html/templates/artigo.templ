@@ -1,0 +1,32 @@
+package templates
+
+import ( 
+    "github.com/sungales/projetoartigo/models"
+)
+
+templ Base(title string) {
+    <html>
+        <head>
+            <meta charset="UTF-8"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+            <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+            <link rel="stylesheet" href="/static/css/output.css"></link>
+            <title>{title}</title>
+        </head>
+        <body>
+            <main class='p-6 grid gap-4'>
+                { children... }
+            </main>
+        </body>
+    </html>
+}
+
+templ ArtigoTemplate(title string, artigos []models.Artigo) { 
+    @Base(title)
+    <ul class="bg-amber-400">
+        for _, a := range artigos { 
+            <li class="text-cyan-600"> { a.Descricao } </li>
+            <li class="bg-red-500"> { a.CreatedAt.Format("02/01/2006 15:04") } </li>
+        }
+    </ul>
+}
