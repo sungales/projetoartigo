@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/sungales/projetoartigo/internal/models"
 	"github.com/sungales/projetoartigo/html/templates"
+	"github.com/sungales/projetoartigo/internal/models"
 
 	database "github.com/sungales/projetoartigo/db"
 )
@@ -68,5 +68,5 @@ func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(artigoJSON)
-	fmt.Println("artigo com o ID ", id, " enviado")
+	fmt.Println("artigo com o ID: ", id, " enviado")
 }
