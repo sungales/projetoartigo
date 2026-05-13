@@ -32,15 +32,13 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf8")
-
 	var artigos, err = database.GetAllArticles()
 	if err != nil {
 		fmt.Println("não foi possivel pegar os artigos do banco: ", err)
 		return
 	}
 
-	component := templates.ArtigoTemplate("title", artigos)
+	component := templates.GetArtigosTemplate("title", artigos)
 	if err = component.Render(r.Context(), w); err != nil {
 		fmt.Println("erro ao renderizar")
 		return

@@ -16,9 +16,11 @@ func main() {
 		log.Fatal("não foi possivel conectar ao banco: ", err)
 	}
 
-	http.HandleFunc("GET /artigos", routes.GetArticlesRoute)
+	http.HandleFunc("GET /artigos", routes.GetArticlesRoute, ) 
 	http.HandleFunc("POST /artigos/criar", routes.CreateArticleRoute)
 	http.HandleFunc("GET /artigos/{id}", routes.GetArticleByIDRoute)
+
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

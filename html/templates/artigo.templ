@@ -21,7 +21,7 @@ templ Base(title string) {
     </html>
 }
 
-templ ArtigoTemplate(title string, artigos []models.Artigo) { 
+templ GetArtigosTemplate(title string, artigos []models.Artigo) { 
     @Base(title)
     <ul class="bg-amber-400">
         for _, a := range artigos { 
@@ -30,3 +30,4 @@ templ ArtigoTemplate(title string, artigos []models.Artigo) {
         }
     </ul>
 }
+
