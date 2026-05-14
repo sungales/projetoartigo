@@ -87,40 +87,40 @@ func GetArtigosTemplate(artigos []models.Artigo) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			for _, a := range artigos {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"rounded-lg bg-amber-400 p-4 shadow\"><p class=\"text-black font-semibold\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"rounded-lg bg-gray-300 p-3 shadow\"><p class=\"text-black font-semibold\">ID do Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(a.ID)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 29, Col: 66}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 29, Col: 80}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</p><p class=\"text-cyan-900 font-medium\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</p><p class=\"text-cyan-900 font-medium\">Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(a.Descricao)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 30, Col: 74}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 30, Col: 82}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</p><p class=\"mt-2 text-sm text-zinc-700\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</p><p class=\"mt-2 text-sm text-zinc-700\">Data de Criação: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(a.CreatedAt.Format("02/01/2006 15:04"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 32, Col: 68}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 32, Col: 87}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -178,7 +178,7 @@ func CriarArtigoTemplate() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"flex flex-1 items-center justify-center px-4\"><div class=\"w-full max-w-2xl flex flex-col gap-4\"><h1 class=\"text-xl font-semibold text-zinc-800 text-center mb-2\">Crie seu artigo!</h1><textarea id=\"artigoArea\" class=\"min-h-[220px] w-full resize-none rounded-lg border border-zinc-300 bg-white p-3 text-zinc-800 shadow-sm outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400\" placeholder=\"Escreva seu artigo aqui...\"></textarea> <button class=\"text-center rounded-md border border-zinc-400 px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:bg-zinc-200 active:bg-zinc-300\">Criar Artigo</button></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"flex flex-1 items-center justify-center px-4\"><div class=\"w-full max-w-2xl flex flex-col gap-4\"><h1 class=\"text-xl font-semibold text-zinc-800 text-center mb-2\">Crie seu artigo!</h1><textarea id=\"artigoArea\" class=\"min-h-[220px] w-full resize-none rounded-lg border border-zinc-300 bg-white p-3 text-zinc-800\" placeholder=\"Escreva seu artigo aqui...\"></textarea> <button class=\"text-center rounded-md border border-zinc-400 px-3 py-1.5 text-sm text-zinc-700\">Criar Artigo</button></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

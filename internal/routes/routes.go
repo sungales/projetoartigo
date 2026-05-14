@@ -25,12 +25,13 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 
 	artigo = models.Artigo{
 		ID:        artigo.ID,
+		Titulo:    artigo.Titulo,
 		Descricao: artigo.Descricao,
 		CreatedAt: time.Now(),
 	}
 
-	if artigo.Descricao == "" {
-		fmt.Print("a descricao nao pode estar vazia")
+	if artigo.Descricao == "" && artigo.Titulo == "" {
+		fmt.Print("a descricao e o titulo nao podem estar vazios")
 		return
 	}
 
