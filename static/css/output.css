@@ -12,16 +12,22 @@
     --color-cyan-600: oklch(60.9% 0.126 221.723);
     --color-cyan-900: oklch(39.8% 0.07 227.392);
     --color-zinc-100: oklch(96.7% 0.001 286.375);
+    --color-zinc-200: oklch(92% 0.004 286.32);
     --color-zinc-300: oklch(87.1% 0.006 286.286);
+    --color-zinc-400: oklch(70.5% 0.015 286.067);
     --color-zinc-700: oklch(37% 0.013 285.805);
     --color-zinc-800: oklch(27.4% 0.006 286.033);
+    --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-2xl: 42rem;
     --container-4xl: 56rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
+    --text-xl: 1.25rem;
+    --text-xl--line-height: calc(1.75 / 1.25);
     --font-weight-medium: 500;
+    --font-weight-semibold: 600;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --default-font-family: var(--font-sans);
@@ -207,14 +213,23 @@
   .max-w-4xl {
     max-width: var(--container-4xl);
   }
+  .flex-1 {
+    flex: 1;
+  }
   .resize-none {
     resize: none;
+  }
+  .flex-col {
+    flex-direction: column;
   }
   .items-center {
     align-items: center;
   }
   .justify-center {
     justify-content: center;
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
   }
   .space-y-4 {
     :where(& > :not(:last-child)) {
@@ -223,11 +238,14 @@
       margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
+  .self-end {
+    align-self: flex-end;
+  }
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
-  .rounded-xl {
-    border-radius: var(--radius-xl);
+  .rounded-tl-lg {
+    border-top-left-radius: var(--radius-lg);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -235,6 +253,9 @@
   }
   .border-zinc-300 {
     border-color: var(--color-zinc-300);
+  }
+  .border-zinc-400 {
+    border-color: var(--color-zinc-400);
   }
   .bg-amber-400 {
     background-color: var(--color-amber-400);
@@ -245,22 +266,42 @@
   .bg-zinc-100 {
     background-color: var(--color-zinc-100);
   }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
   .p-4 {
     padding: calc(var(--spacing) * 4);
   }
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
   }
+  .py-2 {
+    padding-block: calc(var(--spacing) * 2);
+  }
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
+  }
+  .text-center {
+    text-align: center;
   }
   .text-sm {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
   .font-medium {
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
+  }
+  .font-semibold {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+  .text-black {
+    color: var(--color-black);
   }
   .text-cyan-900 {
     color: var(--color-cyan-900);
@@ -275,28 +316,15 @@
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .shadow-sm {
-    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
   .outline-none {
     --tw-outline-style: none;
     outline-style: none;
   }
-  .focus\:border-cyan-600 {
-    &:focus {
-      border-color: var(--color-cyan-600);
-    }
-  }
-  .focus\:ring-2 {
-    &:focus {
-      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    }
-  }
-  .focus\:ring-cyan-200 {
-    &:focus {
-      --tw-ring-color: var(--color-cyan-200);
+  .hover\:bg-zinc-200 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-zinc-200);
+      }
     }
   }
 }
