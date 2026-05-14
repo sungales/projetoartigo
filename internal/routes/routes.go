@@ -22,17 +22,18 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "erro ao decodificar o corpo da requisição", http.StatusBadRequest)
 		return
 	}
+
 	artigo = models.Artigo{
-		ID: artigo.ID,
+		ID:        artigo.ID,
 		Descricao: artigo.Descricao,
 		CreatedAt: time.Now(),
 	}
 
-	if artigo.Descricao == "" { 
+	if artigo.Descricao == "" {
 		fmt.Print("a descricao nao pode estar vazia")
 		return
 	}
-	
+
 	database.CreateArticle(artigo)
 	w.Write([]byte("artigo criado!"))
 }
