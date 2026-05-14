@@ -38,7 +38,7 @@ func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	component := templates.GetArtigosTemplate("title", artigos)
+	component := templates.GetArtigosTemplate(artigos)
 	if err = component.Render(r.Context(), w); err != nil {
 		fmt.Println("erro ao renderizar")
 		return
