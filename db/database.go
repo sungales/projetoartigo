@@ -37,7 +37,7 @@ func ConnectDatabase() (error) {
 }
 
 func GetAllArticles() ([]models.Artigo, error) {
-	query := "SELECT * FROM artigos"
+	query := "SELECT id, descricao, created_at FROM artigos"
 
 	rows, err := database.Query(query)
 	if err != nil {

@@ -26,7 +26,7 @@ templ GetArtigosTemplate(artigos []models.Artigo) {
             <ul class="space-y-4">
                 for _, a := range artigos {
                     <li class="rounded-lg bg-amber-400 p-4 shadow">
-                        <p class="text-black font-semibold"></p>
+                        <p class="text-black font-semibold">{ a.ID }</p>
                         <p class="text-cyan-900 font-medium">{ a.Descricao }</p>
                         <p class="mt-2 text-sm text-zinc-700">
                             { a.CreatedAt.Format("02/01/2006 15:04") }

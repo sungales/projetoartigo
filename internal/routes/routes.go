@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/sungales/projetoartigo/html/templates"
 	"github.com/sungales/projetoartigo/internal/models"
@@ -21,12 +22,17 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "erro ao decodificar o corpo da requisição", http.StatusBadRequest)
 		return
 	}
-
-	if artigo.Descricao == "" || artigo.CreatedAt.IsZero() {
-		http.Error(w, "falta preencher a descricao e/ou a data", http.StatusBadRequest)
-		return
+	artigo = models.Artigo{
+		ID: artigo.ID,
+		Descricao: artigo.Descricao,
+		CreatedAt: time.Now(),
 	}
 
+	if artigo.Descricao == "" { 
+		fmt.Print("a descricao nao pode estar vazia")
+		return
+	}
+	
 	database.CreateArticle(artigo)
 	w.Write([]byte("artigo criado!"))
 }
