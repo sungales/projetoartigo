@@ -20,13 +20,14 @@ templ Base() {
     </html>
 }
 
-templ GetArtigosTemplate(artigos []models.Artigo) {
+templ GetAllArtigosTemplate(artigos []models.Artigo) {
     @Base() {
         <main class="flex-1 mx-auto w-full max-w-4xl px-4 py-8">
             <ul class="space-y-4">
                 for _, a := range artigos {
-                    <li class="rounded-lg bg-gray-300 p-3 shadow">
+                    <li class="rounded-lg bg-gray-450 p-3 shadow">
                         <p class="text-black font-semibold">ID do Artigo: { a.ID }</p>
+                        <p class="text-">Titulo do Artigo: { a.Titulo }</p>
                         <p class="text-cyan-900 font-medium">Artigo: { a.Descricao }</p>
                         <p class="mt-2 text-sm text-zinc-700">
                             Data de Criação: { a.CreatedAt.Format("02/01/2006 15:04") }

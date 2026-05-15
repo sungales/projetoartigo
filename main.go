@@ -18,7 +18,7 @@ func main() {
 		log.Fatal("não foi possivel conectar ao banco: ", err)
 	}
 
-	http.HandleFunc("GET /artigos", routes.GetArticlesRoute) 
+	http.HandleFunc("GET /artigos", routes.GetAllArticlesRoute) 
 	http.HandleFunc("POST /artigos/criar", routes.CreateArticleRoute)
 	http.HandleFunc("GET /artigos/{id}", routes.GetArticleByIDRoute)
 	http.HandleFunc("/teste/teste", func(w http.ResponseWriter, r *http.Request) {

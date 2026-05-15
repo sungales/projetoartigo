@@ -11,7 +11,7 @@ import (
 
 var database *sql.DB
 
-func ConnectDatabase() (error) {
+func ConnectDatabase() error {
 	var err error
 
 	database, err = sql.Open("sqlite", "./database.db")
@@ -37,7 +37,7 @@ func ConnectDatabase() (error) {
 }
 
 func GetAllArticles() ([]models.Artigo, error) {
-	query := "SELECT id, descricao, created_at FROM artigos"
+	query := "SELECT id, titulo, descricao, created_at FROM artigos"
 
 	rows, err := database.Query(query)
 	if err != nil {
@@ -50,7 +50,7 @@ func GetAllArticles() ([]models.Artigo, error) {
 
 	for rows.Next() {
 		var artigo models.Artigo
-		err := rows.Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
+		err := rows.Scan(&artigo.ID, &artigo.Titulo, &artigo.Descricao, &artigo.CreatedAt)
 		if err != nil {
 			fmt.Println("não foi possivel ler os artigos do banco: ", err)
 			return []models.Artigo{}, err
@@ -61,10 +61,10 @@ func GetAllArticles() ([]models.Artigo, error) {
 }
 
 func GetArticleByID(id int) (models.Artigo, error) {
-	query := "SELECT id, descricao, created_at FROM artigos WHERE id = ?"
+	query := "SELECT id, titulo, descricao, created_at FROM artigos WHERE id = ?"
 
 	var artigo models.Artigo
-	err := database.QueryRow(query, id).Scan(&artigo.ID, &artigo.Descricao, &artigo.CreatedAt)
+	err := database.QueryRow(query, id).Scan(&artigo.ID, &artigo.Titulo, &artigo.Descricao, &artigo.CreatedAt)
 	if err != nil {
 		fmt.Println("não foi possivel trazer o artigo", err)
 		return models.Artigo{}, err
@@ -72,10 +72,10 @@ func GetArticleByID(id int) (models.Artigo, error) {
 	return artigo, nil
 }
 
-func CreateArticle(artigo models.Artigo) (error) {
-	query := "INSERT INTO artigos (descricao, created_at) VALUES (?, ?)"
+func CreateArticle(artigo models.Artigo) error {
+	query := "INSERT INTO artigos (titulo, descricao, created_at) VALUES (?, ?, ?)"
 
-	_, err := database.Exec(query, artigo.Descricao, artigo.CreatedAt)
+	_, err := database.Exec(query, artigo.Titulo, artigo.Descricao, artigo.CreatedAt)
 	if err != nil {
 		fmt.Println("não foi possivel criar o artigo ", err)
 		return err

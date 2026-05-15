@@ -30,7 +30,7 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 		CreatedAt: time.Now(),
 	}
 
-	if artigo.Descricao == "" && artigo.Titulo == "" {
+	if artigo.Descricao == "" || artigo.Titulo == "" {
 		fmt.Print("a descricao e o titulo nao podem estar vazios")
 		return
 	}
@@ -39,14 +39,14 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("artigo criado!"))
 }
 
-func GetArticlesRoute(w http.ResponseWriter, r *http.Request) {
+func GetAllArticlesRoute(w http.ResponseWriter, r *http.Request) {
 	var artigos, err = database.GetAllArticles()
 	if err != nil {
 		fmt.Println("não foi possivel pegar os artigos do banco: ", err)
 		return
 	}
 
-	component := templates.GetArtigosTemplate(artigos)
+	component := templates.GetAllArtigosTemplate(artigos)
 	if err = component.Render(r.Context(), w); err != nil {
 		fmt.Println("erro ao renderizar")
 		return
