@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS artigos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    titulo STRING,
-    descricao TEXT NOT NULL,    
+    titulo STRING NOT NULL UNIQUE,
+    descricao TEXT NOT NULL UNIQUE,    
     created_at DATETIME NOT NULL
 )

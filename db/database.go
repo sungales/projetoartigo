@@ -19,6 +19,7 @@ func ConnectDatabase() error {
 		log.Fatal("não foi possivel conectar ao banco ", err)
 		return err
 	}
+	defer database.Close()
 
 	fmt.Println("banco funcionando")
 
