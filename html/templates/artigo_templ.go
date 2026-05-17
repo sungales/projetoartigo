@@ -8,9 +8,7 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"github.com/sungales/projetoartigo/internal/models"
-)
+import "github.com/sungales/projetoartigo/internal/models"
 
 func Base() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -82,7 +80,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<main class=\"flex-1 mx-auto w-full max-w-4xl px-4 py-8\"><ul class=\"space-y-4\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<main class=\"flex mx-auto w-full max-w-4xl px-4 py-8\"><ul class=\"space-y-4\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -94,20 +92,20 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(a.ID)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 29, Col: 80}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 28, Col: 27}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</p><p class=\"text-yellow-500 decoration-solid\">Titulo do Artigo: ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</p><p class=\"text-indigo-500 font-normal\">Titulo do Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(a.Titulo)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 30, Col: 96}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 31, Col: 35}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -120,7 +118,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(a.Descricao)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 31, Col: 82}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 34, Col: 28}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -133,7 +131,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(a.CreatedAt.Format("02/01/2006 15:04"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 33, Col: 87}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `html/templates/artigo.templ`, Line: 37, Col: 66}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -191,7 +189,7 @@ func CriarArtigoTemplate() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"flex flex-1 items-center justify-center px-4\"><div class=\"w-full max-w-2xl flex flex-col gap-4\"><h1 class=\"text-xl font-semibold text-zinc-800 text-center mb-2\">Crie seu artigo!</h1><textarea id=\"artigoArea\" class=\"min-h-[220px] w-full resize-none rounded-lg border border-zinc-300 bg-white p-3 text-zinc-800\" placeholder=\"Escreva seu artigo aqui...\"></textarea> <button class=\"text-center rounded-md border border-zinc-400 px-3 py-1.5 text-sm text-zinc-700\">Criar Artigo</button></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"flex flex-1 items-center justify-center px-4\"><div class=\"w-full max-w-2xl flex flex-col gap-4\"><h1 class=\"text-xl font-semibold text-zinc-800 text-center mb-2\">Crie seu artigo!</h1><input type=\"text\" name=\"tituloDoArtigo\" class=\"w-full rounded-lg border-2 border-blue-600 bg-red-400 text-white p-2.5\" placeholder=\"Escreva seu titulo aqui...\" id=\"artigoTituloArea\"> <textarea id=\"artigoTextoArea\" class=\"min-h-[220px] w-full resize-none rounded-lg border border-zinc-300 bg-white p-3 text-zinc-800\" placeholder=\"Escreva seu artigo aqui...\" name=\"textoDoArtigo\"></textarea> <button type=\"submit\" hx-target=\"#resultado\" hx-include=\"#artigoTextoArea #artigoTituloArea\" hx-swap=\"innerHTML\" hx-post=\"/artigos/criar\" hx-trigger=\"click\" class=\"text-center rounded-md border border-zinc-400 px-3 py-1.5 text-sm text-zinc-700\">Criar Artigo</button></div></div><div id=\"#resultado\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

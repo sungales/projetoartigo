@@ -17,20 +17,23 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf8")
 
 	var artigo models.Artigo
-	err := json.NewDecoder(r.Body).Decode(&artigo)
-	if err != nil {
-		http.Error(w, "erro ao decodificar o corpo da requisição", http.StatusBadRequest)
-		return
+
+	component := templates.CriarArtigoTemplate()
+	if err := component.Render(r.Context(), w); err != nil {
+		http.Error(w, "erro ao tentar renderizar o Templ", http.StatusInternalServerError)
 	}
+
+	artigoTexto := r.FormValue("textoDoArtigo")
+	artigoTitulo := r.FormValue("tituloArtigo")
 
 	artigo = models.Artigo{
 		ID:        artigo.ID,
-		Titulo:    artigo.Titulo,
-		Descricao: artigo.Descricao,
+		Titulo:    artigoTitulo,
+		Descricao: artigoTexto,
 		CreatedAt: time.Now(),
 	}
 
-	if artigo.Descricao == "" || artigo.Titulo == "" {
+	if artigoTexto == "" || artigoTitulo == "" {
 		fmt.Print("a descricao e o titulo nao podem estar vazios")
 		return
 	}
