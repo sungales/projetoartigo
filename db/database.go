@@ -77,10 +77,10 @@ func CreateArticle(artigo models.Artigo) error {
 
 	_, err := database.Exec(query, artigo.Titulo, artigo.Descricao, artigo.CreatedAt)
 	if err != nil {
-		fmt.Println("não foi possivel criar o artigo ", err)
+		fmt.Println("não foi possivel criar o artigo no banco ", err)
 		return err
 	}
-
-	fmt.Println("artigo criado!")
+	
+	fmt.Println("artigo criado com sucesso!")
 	return nil
 }

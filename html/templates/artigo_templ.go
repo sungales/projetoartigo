@@ -31,7 +31,7 @@ func Base() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"pt-BR\" class=\"h-full\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"https://unpkg.com/htmx.org@2.0.2/dist/htmx.min.js\"></script><link rel=\"stylesheet\" href=\"/static/css/output.css\"><title>Artigos</title></head><body class=\"min-h-screen w-full bg-zinc-100 flex flex-col\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"pt-BR\" class=\"h-full\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Artigos</title><script src=\"https://unpkg.com/htmx.org@2.0.2/dist/htmx.min.js\"></script><link rel=\"stylesheet\" href=\"/static/css/output.css\"></head><body class=\"flex flex-col min-h-screen w-full bg-zinc-100\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -80,12 +80,12 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<main class=\"flex mx-auto w-full max-w-4xl px-4 py-8\"><ul class=\"space-y-4\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<main class=\"flex mx-auto w-full max-w-4xl px-4 py-8\"><ul class=\"w-full space-y-4\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, a := range artigos {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"rounded-lg bg-gray-450 p-3 shadow\"><p class=\"text-black font-semibold\">ID do Artigo: ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"rounded-lg bg-gray-450 p-3 shadow\"><p class=\"font-semibold text-black\">ID do Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -98,7 +98,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</p><p class=\"text-indigo-500 font-normal\">Titulo do Artigo: ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</p><p class=\"font-normal text-indigo-500\">Titulo do Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -111,7 +111,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</p><p class=\"text-cyan-900 font-medium\">Artigo: ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</p><p class=\"font-medium text-cyan-900\">Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -189,7 +189,7 @@ func CriarArtigoTemplate() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"flex flex-1 items-center justify-center px-4\"><div class=\"w-full max-w-2xl flex flex-col gap-4\"><h1 class=\"text-xl font-semibold text-zinc-800 text-center mb-2\">Crie seu artigo!</h1><input type=\"text\" name=\"tituloDoArtigo\" class=\"w-full rounded-lg border-2 border-blue-600 bg-red-400 text-white p-2.5\" placeholder=\"Escreva seu titulo aqui...\" id=\"artigoTituloArea\"> <textarea id=\"artigoTextoArea\" class=\"min-h-[220px] w-full resize-none rounded-lg border border-zinc-300 bg-white p-3 text-zinc-800\" placeholder=\"Escreva seu artigo aqui...\" name=\"textoDoArtigo\"></textarea> <button type=\"submit\" hx-target=\"#resultado\" hx-include=\"#artigoTextoArea #artigoTituloArea\" hx-swap=\"innerHTML\" hx-post=\"/artigos/criar\" hx-trigger=\"click\" class=\"text-center rounded-md border border-zinc-400 px-3 py-1.5 text-sm text-zinc-700\">Criar Artigo</button></div></div><div id=\"#resultado\"></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"flex flex-col flex-1 items-center justify-center px-4\"><form hx-post=\"/artigos/criar\" hx-target=\"#resultado\" hx-swap=\"innerHTML\" class=\"flex flex-col w-full max-w-2xl gap-4\"><h1 class=\"mb-2 text-center text-xl font-semibold text-zinc-800\">Crie seu artigo!</h1><input id=\"artigoTituloArea\" name=\"tituloDoArtigo\" type=\"text\" placeholder=\"Escreva seu titulo aqui...\" class=\"min-h-[5px] w-full rounded-lg border-2 border-blue-600 bg-white p-3 text-black\"> <textarea id=\"artigoTextoArea\" name=\"textoDoArtigo\" placeholder=\"Escreva seu artigo aqui...\" class=\"min-h-[220px] w-full resize-none rounded-lg border border-zinc-300 bg-white p-3 text-zinc-800\"></textarea> <button type=\"submit\" class=\"rounded-md border border-zinc-400 px-3 py-1.5 text-center text-sm text-zinc-700 hover:bg-zinc-200 transition-colors\">Criar Artigo</button></form><div id=\"resultado\" class=\"mt-4 w-full max-w-2xl\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

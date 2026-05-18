@@ -16,9 +16,9 @@ func main() {
 		log.Fatal("não foi possivel conectar ao banco: ", err)
 	}
 
-	http.HandleFunc("GET /artigos", routes.GetAllArticlesRoute) 
-	http.HandleFunc("POST /artigos/criar", routes.CreateArticleRoute)
-	http.HandleFunc("GET /artigos/{id}", routes.GetArticleByIDRoute)
+	http.HandleFunc("GET /artigos", routes.GetAllArticlesRoute)
+	http.HandleFunc("/artigos/criar", routes.CreateArticleRoute)
+	http.HandleFunc("GET /artigos/id/{id}", routes.GetArticleByIDRoute)
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 

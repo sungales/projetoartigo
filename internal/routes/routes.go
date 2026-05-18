@@ -14,32 +14,46 @@ import (
 )
 
 func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf8")
 
-	var artigo models.Artigo
+	if r.Method == http.MethodGet {
+		w.Header().Set("Content-Type", "text/html; charset=utf8")
 
-	component := templates.CriarArtigoTemplate()
-	if err := component.Render(r.Context(), w); err != nil {
-		http.Error(w, "erro ao tentar renderizar o Templ", http.StatusInternalServerError)
+		component := templates.CriarArtigoTemplate()
+		if err := component.Render(r.Context(), w); err != nil {
+			http.Error(w, "erro ao tentar renderizar o Templ", http.StatusInternalServerError)
+		}
+
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, "erro ao tentar ler tudo do body", http.StatusInternalServerError)
+			return
+		}
 	}
 
-	artigoTexto := r.FormValue("textoDoArtigo")
-	artigoTitulo := r.FormValue("tituloArtigo")
+	if r.Method == http.MethodPost {
+		artigoTexto := r.FormValue("textoDoArtigo")
+		artigoTitulo := r.FormValue("tituloDoArtigo")
 
-	artigo = models.Artigo{
-		ID:        artigo.ID,
-		Titulo:    artigoTitulo,
-		Descricao: artigoTexto,
-		CreatedAt: time.Now(),
+		var artigo models.Artigo
+
+		fmt.Println("Descricao do artigo: ", artigoTexto, " Titulo do artigo: ")
+
+		artigo = models.Artigo{
+			ID:        artigo.ID,
+			Titulo:    artigoTitulo,
+			Descricao: artigoTexto,
+			CreatedAt: time.Now(),
+		}
+
+		if artigoTexto == "" || artigoTitulo == "" {
+			fmt.Print("a descricao e o titulo nao podem estar vazios")
+			return
+		}
+
+		if err := database.CreateArticle(artigo); err != nil { 
+			fmt.Println("erro ao criar artigo")
+			return
+		}
 	}
-
-	if artigoTexto == "" || artigoTitulo == "" {
-		fmt.Print("a descricao e o titulo nao podem estar vazios")
-		return
-	}
-
-	database.CreateArticle(artigo)
-	w.Write([]byte("artigo criado!"))
 }
 
 func GetAllArticlesRoute(w http.ResponseWriter, r *http.Request) {
@@ -60,6 +74,7 @@ func GetArticleByIDRoute(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf8")
 
 	var artigoID = r.PathValue("id")
+
 	id, err := strconv.Atoi(artigoID)
 	if err != nil {
 		fmt.Println("não foi possivel converter: ", err)
