@@ -49,7 +49,7 @@ func CreateArticleRoute(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if err := database.CreateArticle(artigo); err != nil { 
+		if err := database.CreateArticle(artigo); err != nil {
 			fmt.Println("erro ao criar artigo")
 			return
 		}
@@ -67,6 +67,39 @@ func GetAllArticlesRoute(w http.ResponseWriter, r *http.Request) {
 	if err = component.Render(r.Context(), w); err != nil {
 		fmt.Println("erro ao renderizar")
 		return
+	}
+}
+
+func EditArticleRoute(w http.ResponseWriter, r *http.Request) {
+	var err error
+	var idstr = r.PathValue("id")
+	var id int
+
+	if idstr == "" {
+		http.Error(w, "você não especificou um ID", http.StatusBadRequest)
+		return
+	}
+
+	id, err = strconv.Atoi(idstr)
+	if err != nil {
+		fmt.Println("não foi possivel converter o ID para número: ", err)
+		return
+	}
+
+	if artigo, err := database.GetArticleByID(id); err != nil {
+		fmt.Println("erro ao tentar pegar o artigo pelo ID", err)
+		return
+	} else {
+		if err = json.NewDecoder(r.Body).Decode(&artigo); err != nil {
+			fmt.Print("erro ao puxar/ler o body da requisição ", err)
+			return
+		}
+
+		if err = database.EditArticle(id, artigo); err != nil {
+			fmt.Println("erro ao editar o artigo: ", err)
+			return
+		}
+		fmt.Println("arquivo editado com sucesso!")
 	}
 }
 

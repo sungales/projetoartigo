@@ -72,6 +72,18 @@ func GetArticleByID(id int) (models.Artigo, error) {
 	return artigo, nil
 }
 
+func EditArticle(id int, artigo models.Artigo) error {
+	query := "UPDATE artigos SET titulo = ?, descricao = ? WHERE id = ?"
+
+	if _, err := database.Exec(query, &artigo.Titulo, &artigo.Descricao, id); err != nil {
+		fmt.Println("não foi possivel editar o artigo: ", err)
+		return err
+	}
+
+	fmt.Println("artigo modificado com sucesso!")
+	return nil
+}
+
 func CreateArticle(artigo models.Artigo) error {
 	query := "INSERT INTO artigos (titulo, descricao, created_at) VALUES (?, ?, ?)"
 
@@ -80,7 +92,7 @@ func CreateArticle(artigo models.Artigo) error {
 		fmt.Println("não foi possivel criar o artigo no banco ", err)
 		return err
 	}
-	
+
 	fmt.Println("artigo criado com sucesso!")
 	return nil
 }

@@ -85,7 +85,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			for _, a := range artigos {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"rounded-lg bg-gray-450 p-3 shadow\"><p class=\"font-semibold text-black\">ID do Artigo: ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<li class=\"rounded-lg bg-gray-450 p-3 shadow\"><p class=\"font-semibold text-white\">ID do Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -111,7 +111,7 @@ func GetAllArtigosTemplate(artigos []models.Artigo) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</p><p class=\"font-medium text-cyan-900\">Artigo: ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</p><p class=\"font-medium text-black\">Artigo: ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
